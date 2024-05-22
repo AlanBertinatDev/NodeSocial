@@ -1,0 +1,196 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Red social Node",
+        "description": "Una red social en NodeJS",
+        "version": "1.0.11"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api"
+        }
+    ],
+    "tags": [
+        {
+            "name": "user",
+            "description": "Operaciones del usuario"
+        }
+    ],
+    "paths": {
+        "/user": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Muestra usuarios",
+                "description": "Muestra todos los usuarios registrados",
+                "operationId": "listUser",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Crea un usuario",
+                "description": "Crea un usuario en nuestra app",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Crea un objeto usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario creado correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Solicitud inválida"
+                    },
+                    "500": {
+                        "description": "Error en el servidor"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Obtener un usuario por su ID",
+                "description": "Obtiene un usuario específico por su ID",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID del usuario a obtener",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    },
+                    "500": {
+                        "description": "Error en el servidor"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": 10
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Juan"
+                    }
+                }
+            },
+            "Tag": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "UserArray": {
+                "description": "Lista de usuarios",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "petstore_auth": {
+                "type": "oauth2",
+                "flows": {
+                    "implicit": {
+                        "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+                        "scopes": {}
+                    }
+                }
+            },
+            "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+            }
+        }
+    }
+}

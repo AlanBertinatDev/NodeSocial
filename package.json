@@ -1,0 +1,19 @@
+{
+  "name": "social-media",
+  "version": "1.0.0",
+  "description": "Proyecto red social con node",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --experimental-modules api/index.js"
+  },
+  "author": "alanb",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "nanoid": "^5.0.7",
+    "swagger-ui-express": "^5.0.0"
+  }
+}
